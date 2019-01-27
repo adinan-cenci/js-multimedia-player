@@ -45,8 +45,14 @@ class PlayerYouTube extends Player
             });
         }
 
-        this.reset();
+        //this.reset();
         this.startFollowing();
+
+        if (this.playerReady) {
+            this.ytPlayer.loadVideoById(this.data.id);
+            return;
+        }
+
         return this.initializePlayer().then(() =>
         {
             this.playerReady = true;
@@ -82,16 +88,18 @@ class PlayerYouTube extends Player
     cuePlaylist(id, index = null, startSeconds = 0, suggestedQuality = null) 
     {
         this.ytPlayer.cuePlaylist(id);
-    }
+    } 
 
     async setupSdk() 
     {
-        var gxi = this;
         this.deployRootDiv();
-        return this.loadSdk().then(function(m) 
+        return this.loadSdk().then(m =>
         {
-            console.log(m)
-            gxi.sdkReady = true;
+            console.log(m);
+            this.sdkReady = true;
+        }, m => 
+        {
+            this.callBackOnError(m);
         });
     }
 
@@ -113,12 +121,12 @@ class PlayerYouTube extends Player
         if (w) {
             this.wrapper = w;
         } else {
-            this.wrapper       = document.createElement('div')
+            this.wrapper       = document.createElement('div');
             this.wrapper.id    = this.settings.wrapperId;
             document.body.append(this.wrapper);
         }
 
-        youtubeDiv          = document.createElement('div')
+        youtubeDiv          = document.createElement('div');
         youtubeDiv.id       = this.settings.embbedId;
 
         this.wrapper.append(youtubeDiv);
@@ -128,13 +136,9 @@ class PlayerYouTube extends Player
     {
         return new Promise((success, fail) =>
         {
-            loadExternalJs("https://www.youtube.com/iframe_api").then(function() {
-                console.log('SDK: loaded');
-                setTimeout(function(){success('SDK: ready');}, 500);
-            }, function() {
-                fail();
-                this.callBackOnError('Error loading');
-            });
+            loadExternalJs('https://www.youtube.com/iframe_api').then(function() {
+                setTimeout(function(){ success('YouTube SDK ready'); }, 500);
+            }, function() { fail('Error loading SDK'); });
         });
     }
 
@@ -144,17 +148,18 @@ class PlayerYouTube extends Player
         {
             var width   = this.settings.width;
             var height  = this.settings.height;
+            var gxi     = this;
 
             if (this.settings.width == 'auto') {
                 width = this.wrapper.offsetWidth;
                 height = width / 1.77;
             }
 
-            this.ytPlayer = new YT.Player(this.settings.embbedId, 
+            this.ytPlayer = new YT.Player(gxi.settings.embbedId, 
             {
                 width           : width,
                 height          : height,
-                videoId         : this.data.id, 
+                videoId         : gxi.data.id, 
                 startSeconds    : 0, 
                 playerVars      : { 'autoplay': 1, 'controls': 1 }, 
                 events          : 
@@ -162,30 +167,30 @@ class PlayerYouTube extends Player
                     onReady(event) 
                     {
                         success('PLAYER: ready');
-                        this.callBackOnReady(event);
+                        gxi.callBackOnReady(event);
                     },
-                    onStateChange: this.callBackOnStateChange.bind(this),
+                    onStateChange: gxi.callBackOnStateChange.bind(gxi),
                     onError(errorCode) 
                     {
                         switch (errorCode) 
                         {
                             case 2:
-                                console.log('Error 2: parametros invalidos.');
+                                gxi.log('Error 2: parametros invalidos.');
                             break;
                             case 5:
-                                console.log('Error 5: Ocorreu um erro relacionado ao player HTML5.');
+                                gxi.log('Error 5: Ocorreu um erro relacionado ao player HTML5.');
                             break;
                             case 100:
-                                console.log('Error 100: O vídeo não foi encontrado.');
+                                gxi.log('Error 100: O vídeo não foi encontrado.');
                             break;
                             case 101:
                             case 150:
-                                console.log('Error 101: O proprietário do vídeo não permite que ele seja reproduzido em players incorporados.');
+                                gxi.log('Error 101: O proprietário do vídeo não permite que ele seja reproduzido em players incorporados.');
                             break;
                         }
 
                         fail(errorCode);
-                        this.callBackOnError(errorCode);
+                        gxi.callBackOnError(errorCode);
                     }
                 }
             });
@@ -235,43 +240,41 @@ class PlayerYouTube extends Player
 
         var code = e.data;
 
-        console.log('code', code)
-
         switch (code) {
-            case -1: /* não iniciado */
-                console.log('-1 não iniciado');
+            case -1:
+                this.log('State change: -1 unstarted');
                 this.reproducing    = false;
                 this.playing        = false;
                 this.paused         = false;            
             break;
             case 0: /* encerrado */
-                console.log('0 encerrado');
+                this.log('State change: 0 ended');
                 this.reproducing    = false;
                 this.playing        = false;
                 this.paused         = false;
                 this.callBackOnEnded();
             break;
-            case 1: /* em reprodução */
-                console.log('1 em reprodução');
+            case 1:
+                this.log('State change: 1 playing');
                 this.reproducing    = true;
                 this.playing        = true;
                 this.paused         = false;
                 this.callbackOnReproducing();
             break;
-            case 2: /* em pausa */
-                console.log('2 em pausa');
+            case 2:
+                this.log('State change: 2 paused');
                 this.reproducing    = false;
                 this.playing        = false;
                 this.paused         = true;            
             break;
-            case 3: /* armazenando em buffer */
-                console.log('3 buffering');
+            case 3:
+                this.log('State change: 3 buffering');
                 this.reproducing    = false;
                 this.playing        = true;
                 this.paused         = false;            
             break;
-            case 5: /* vídeo cued */
-                console.log('5 vídeo pronto');
+            case 5:
+                this.log('State change: 5 video cued');
                 this.play(0)
             break;
         }

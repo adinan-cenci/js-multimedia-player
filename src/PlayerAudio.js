@@ -16,12 +16,12 @@ class PlayerAudio extends Player
         this.currentTime    = 0;
         this.mediaP         = this.createMedia();
         this.source         = null;
-        this.mediaP.addEventListener('play', this.evtPlay.bind(this));
-        this.mediaP.addEventListener('pause', this.evtPause.bind(this));
-        this.mediaP.addEventListener('timeupdate', this.evtTimeupdate.bind(this));
-        this.mediaP.addEventListener('ended', this.evtEnded.bind(this));
-        this.mediaP.addEventListener('error', this.evtError.bind(this));
-        this.mediaP.addEventListener('waiting', this.evtWaiting.bind(this));
+        this.mediaP.addEventListener('play',        this.evtPlay.bind(this));
+        this.mediaP.addEventListener('pause',       this.evtPause.bind(this));
+        this.mediaP.addEventListener('timeupdate',  this.evtTimeupdate.bind(this));
+        this.mediaP.addEventListener('ended',       this.evtEnded.bind(this));
+        this.mediaP.addEventListener('error',       this.evtError.bind(this));
+        this.mediaP.addEventListener('waiting',     this.evtWaiting.bind(this));
     }
 
     createMedia() 

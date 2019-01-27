@@ -18,12 +18,12 @@ class Player
 
     get currentTimer() 
     {
-        return this.secondsToStringRepresentation(this.currentTime)
+        return this.secondsToStringRepresentation(this.currentTime);
     }
 
     get remainingTimer() 
     {
-        return this.secondsToStringRepresentation(this.remainingTime)
+        return this.secondsToStringRepresentation(this.remainingTime);
     }
 
     /** returns the completed percentage of the audio */
@@ -117,8 +117,14 @@ class Player
         return seconds;
     }
 
+    log(msg) 
+    {
+        console.log(msg);
+    }
     onReady() {}
-    onError(error) {}
+    onError(error) {
+        this.log(error);
+    }
     onEnded() {}
     onTimeupdate() {}
     onStateChange(code) {}
