@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AUDIO</title>
+        <link rel="stylesheet" href="stylesheet.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="module">
+        import PlayerAudio from '../src/PlayerAudio.js';
+        $(document).ready(function() 
+        {
+            window.player                       = new PlayerAudio();
+            window.currentTime                  = $('#current-time')[0];
+            window.remainingTime                = $('#remaining-time')[0];
+            window.progressBar                  = $('#progress-bar')[0];
+
+            window.player.onTimeupdate          = function() 
+            {
+                window.currentTime.innerHTML    = this.currentTimer;
+                window.remainingTime.innerHTML  = this.remainingTimer;
+                window.progressBar.value        = this.currentPercentage;
+            }
+
+            $('#toggle-play-payse').click(window.player.toggle.bind(window.player));
+
+            $('#media-list a').click(function(e) 
+            {
+                e.preventDefault();
+                window.player.setData({file:this.attributes.href.value});
+
+                $('#title').html($(this).find('.title').html());
+                $('#artist').html($(this).find('.artist').html());
+            });
+
+            $(window.progressBar).click(function(e) 
+            {
+                var x, width, perc;
+                x               = e.clientX - this.offsetLeft;
+                width           = this.offsetWidth;
+                perc            = Math.ceil((x / width) * 100)+'%';
+                
+                window.player.setCurrentTime(perc)
+            });
+
+            $('#volume-slider').change(function() {
+                var v = parseInt($(this).val());
+                window.player.setVolume(v);
+            });
+            
+        });
+        </script>
+    </head>
+    <body>
+        <div id="media-player">
+            <ul id="media-list">
+                <li>
+                    <a href="medias/Halo 2-Flawed Legacy.mp3">
+                        <span class="title">Flawed Legacy</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-Heavy Price Paid.mp3">
+                        <span class="title">Heavy Price Paid</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-Heretic, Hero.mp3">
+                        <span class="title">Heretic, Hero</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-High Charity.mp3">
+                        <span class="title">High Charity</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-High Charity Suite.mp3">
+                        <span class="title">High Charity Suite</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-Impend.mp3">
+                        <span class="title">Impend</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-Peril.mp3">
+                        <span class="title">Peril</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 2-Remembrance.mp3">
+                        <span class="title">Remembrance</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 3-Choose Wisely.mp3">
+                        <span class="title">Choose Wisely</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo 3-No More Dead Heroes.mp3">
+                        <span class="title">No More Dead Heroes</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo CE-A Walk in the Woods.mp3">
+                        <span class="title">A Walk in the Woods</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo CE-Gun Pointed At Head Of Universe.mp3">
+                        <span class="title">Gun Pointed At Head Of Universe</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo CE-Perchance to Dream.mp3">
+                        <span class="title">Perchance to Dream</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="medias/Halo CE-Perilous Journey.mp3">
+                        <span class="title">Perilous Journey</span>
+                        <span class="artist">Halo</span>
+                    </a>
+                </li>
+            </ul>
+            <div id="status">
+                <div id="title">---</div>
+                <div id="artist">---</div>
+                <div id="progress">
+                    <div id="current-time">00:00</div>
+                    <progress id="progress-bar" value="0" max="100"></progress>
+                    <div id="remaining-time">00:00</div>
+                </div>
+            </div>
+            <div id="buttons">
+                <button id="toggle-play-payse">&#9646;&#9646; &#9654;</button>
+                <input id="volume-slider" type="range" min="0" max="100" value="100" />
+            </div>
+        </div>
+    </body>
+</html>
