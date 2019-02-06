@@ -1,1 +1,1 @@
-js-media-player
+A interface for multimedia player

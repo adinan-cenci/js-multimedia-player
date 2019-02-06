@@ -1,1 +1,4 @@
 examples/medias/
+.cache/
+node_modules/
+dist/
