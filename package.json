@@ -1,5 +1,5 @@
 {
-  "name": "js-multimedia-player",
+  "name": "@adinan-cenci/js-multimedia-player",
   "version": "1.0.0",
   "description": "js-media-player",
   "main": "index.js",
@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-player/issues"
   },
