@@ -2,7 +2,7 @@
   "name": "@adinan-cenci/js-multimedia-player",
   "version": "1.0.0",
   "description": "js-media-player",
-  "main": "index.js",
+  "main": "src/Player.js",
   "directories": {
     "example": "examples"
   },
@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-player/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/js-multimedia-player#readme",
-  "devDependencies": {
-    "webpack": "^4.29.1"
-  }
+  "homepage": "https://github.com/adinan-cenci/js-multimedia-player#readme"
 }

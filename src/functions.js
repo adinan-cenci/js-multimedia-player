@@ -1,4 +1,4 @@
-export default async function loadExternalJs(src) 
+async function loadExternalJs(src) 
 {
     return new Promise(function(success, fail) 
     {
@@ -21,3 +21,5 @@ export default async function loadExternalJs(src)
         document.body.appendChild(script);
     });
 }
+
+module.exports.loadExternalJs = loadExternalJs;

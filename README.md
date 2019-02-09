@@ -1,1 +1,1 @@
-A interface for multimedia player
+A interface for multimedia player.

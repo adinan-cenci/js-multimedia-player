@@ -65,6 +65,12 @@ interface Player
     //////////////////////////////
 
     /**
+     * Returns a promisses that resolves once 
+     * it is ready to play
+     */
+    create(settings);
+
+    /**
      * @param object settings
      */
     contructor(settings);

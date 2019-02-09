@@ -1,3 +1,5 @@
+'use strict';
+
 // abstract class
 class Player 
 {
@@ -121,12 +123,18 @@ class Player
     {
         console.log(msg);
     }
+
     onReady() {}
-    onError(error) {
+
+    onError(error) 
+    {
         this.log(error);
     }
+
     onEnded() {}
+
     onTimeupdate() {}
+
     onStateChange(code) {}
 }
 
@@ -134,4 +142,5 @@ Player.prototype.playing        = false;
 Player.prototype.paused         = false;
 Player.prototype.reproducing    = false;
 
-export default Player;
+// export default Player;
+module.exports.Player = Player;
