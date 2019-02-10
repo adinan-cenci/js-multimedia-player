@@ -36,6 +36,10 @@ class Player
         time        = Math.round(this.currentTime);
         duration    = Math.round(this.duration);
 
+        if (isNaN(time) || isNaN(duration)) {
+            return 0;
+        }
+
         if (time == 0 || duration == 0) {
             return 0;
         }
