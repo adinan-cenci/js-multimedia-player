@@ -1,9 +1,9 @@
 'use strict';
 
 // abstract class
-class Player 
+class Player
 {
-    toggle() 
+    toggle()
     {
         if (this.playing) {
             this.pause();
@@ -13,23 +13,23 @@ class Player
         this.play();
     }
 
-    get remainingTime() 
+    get remainingTime()
     {
         return this.duration - this.currentTime;
     }
 
-    get currentTimer() 
+    get currentTimer()
     {
         return this.secondsToStringRepresentation(this.currentTime);
     }
 
-    get remainingTimer() 
+    get remainingTimer()
     {
         return this.secondsToStringRepresentation(this.remainingTime);
     }
 
     /** returns the completed percentage of the audio */
-    get currentPercentage() 
+    get currentPercentage()
     {
         var time, duration;
 
@@ -47,18 +47,18 @@ class Player
         return (time / duration) * 100;
     }
 
-    get remainingPercentage() 
+    get remainingPercentage()
     {
         return 100 - this.currentPercentage;
     }
 
     /** returns the seconds that correspond to perc % */
-    percent(perc) 
+    percent(perc)
     {
         return Math.round((this.duration / 100) * perc)
     }
 
-    sanitizeGetSeconds(time) 
+    sanitizeGetSeconds(time)
     {
         var seconds;
 
@@ -69,7 +69,7 @@ class Player
         } else if (typeof time == 'string') {
             seconds = parseInt(time);
         } else {
-            seconds = time;        
+            seconds = time;
         }
 
         if (isNaN(seconds)) {
@@ -79,7 +79,7 @@ class Player
         return seconds;
     }
 
-    secondsToStringRepresentation(seconds) 
+    secondsToStringRepresentation(seconds)
     {
         if (isNaN(seconds)) {
             return '00:00';
@@ -104,12 +104,12 @@ class Player
         return string;
     }
 
-    stringRepresentationToSeconds(string) 
+    stringRepresentationToSeconds(string)
     {
         var seconds, matches, hor, min, sec;
 
         matches = string.match(/[0-9]+/g);
-        
+
         if (matches.length > 3) {
             return false;
         }
@@ -123,14 +123,14 @@ class Player
         return seconds;
     }
 
-    log(msg) 
+    log(msg)
     {
         console.log(msg);
     }
 
     onReady() {}
 
-    onError(error) 
+    onError(error)
     {
         this.log(error);
     }
@@ -147,4 +147,4 @@ Player.prototype.paused         = false;
 Player.prototype.reproducing    = false;
 
 // export default Player;
-module.exports.Player = Player;
+module.exports = Player;
