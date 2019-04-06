@@ -142,9 +142,11 @@ class Player
     onStateChange(code) {}
 }
 
-Player.prototype.playing        = false;
 Player.prototype.paused         = false;
+Player.prototype.playing        = false;
 Player.prototype.reproducing    = false;
+Player.prototype.buffering      = false;
+Player.prototype.waiting        = false; 
 
 // export default Player;
 module.exports = Player;
