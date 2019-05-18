@@ -1,61 +1,61 @@
-interface Player 
+interface Player
 {
-    /** 
-     * @var boolean 
-     * @readonly 
+    /**
+     * @var boolean
+     * @readonly
      */
     playing;
 
-    /** 
-     * @var boolean 
-     * @readonly 
+    /**
+     * @var boolean
+     * @readonly
      */
     paused;
 
-    /** 
-     * @var boolean 
-     * @readonly 
+    /**
+     * @var boolean
+     * @readonly
      */
     reproducing;
 
-    /** 
+    /**
      * @var float Seconds
-     * @readonly 
+     * @readonly
      */
     duration;
 
-    /** 
+    /**
      * @var float Seconds
-     * @readonly 
+     * @readonly
      */
     currentTime;
 
-    /** 
+    /**
      * @var float Seconds
      * @readonly
      */
     remainingTime;
 
-    /** 
+    /**
      * @var string ISO 8601 formated as hh:mm:ss
-     * @readonly 
+     * @readonly
      */
     currentTimer;
 
-    /** 
+    /**
      * @var string ISO 8601 formated as hh:mm:ss
-     * @readonly 
+     * @readonly
      */
     remainingTimer;
 
-    /** 
-     * @var float 
-     * @readonly 
+    /**
+     * @var float
+     * @readonly
      */
     currentPercentage;
 
-    /** 
-     * @var float 
+    /**
+     * @var float
      * @readonly
      */
     remainingPercentage;
@@ -68,7 +68,7 @@ interface Player
      * @param object settings
      */
     contructor(settings);
-    
+
     /**
      * @param object data
      * @return Promisse to resolve once the player is ready
@@ -77,7 +77,7 @@ interface Player
 
     /**
      * @param float|string time Accepts:
-     * - A float, 
+     * - A float,
      * - An ISO 8601 formated string hh:mm:ss
      * - a numerical string suffixed with %
      */
@@ -87,13 +87,18 @@ interface Player
 
     /**
      * @param float|string time Accepts:
-     * - A float, 
+     * - A float,
      * - An ISO 8601 formated string hh:mm:ss
      * - a numerical string suffixed with %
      */
     setCurrentTime(time);
 
-    /** 
+    /**
+     * @alias setCurrentTime
+     */
+    seek(time);
+
+    /**
      * @param int vol Between 0 and 100
      */
     setVolume(vol);
@@ -106,14 +111,14 @@ interface Player
      */
     percent(perc);
 
-    // CALLBACKS 
-     
+    // CALLBACKS
+
     onError(error);
     onEnded();
 
     /** called as the song progress */
     onTimeupdate();
-    
+
     /** called when started, paused, resumed, ended etc */
     onStateChange(code);
 }

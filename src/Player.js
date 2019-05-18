@@ -52,6 +52,11 @@ class Player
         return 100 - this.currentPercentage;
     }
 
+    seek(time)
+    {
+        return this.setCurrentTime(time);
+    }
+
     /** returns the seconds that correspond to perc % */
     percent(perc)
     {
