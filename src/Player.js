@@ -57,10 +57,20 @@ class Player
         return this.setCurrentTime(time);
     }
 
-    /** returns the seconds that correspond to perc % */
-    percent(perc)
+    /**
+     * Returns the seconds that correspond to perc %
+     * @param perc float Percentual
+     * @param bool formated If true, it will return an ISO 8601 formated string
+     */
+    percent(perc, formated = false)
     {
-        return Math.round((this.duration / 100) * perc)
+        var seconds = Math.round((this.duration / 100) * perc);
+
+        if (! formated) {
+            return seconds;
+        }
+
+        return Player.secondsToStringRepresentation(seconds);
     }
 
     sanitizeGetSeconds(time)

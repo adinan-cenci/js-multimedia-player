@@ -71,7 +71,7 @@ interface Player
 
     /**
      * @param object data
-     * @return Promisse to resolve once the player is ready
+     * @return Promise to resolve once the player is ready
      */
     setData(data);
 
@@ -106,10 +106,11 @@ interface Player
     /**
      * Returns the seconds that correspond to perc
      * @method
-     * @param integer perc
+     * @param float perc
+     * @param bool  formated If true, it will return an ISO 8601 formated string
      * @return float
      */
-    percent(perc);
+    percent(perc, formated = false);
 
     // CALLBACKS
 
