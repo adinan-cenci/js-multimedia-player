@@ -14,6 +14,7 @@ See these implementations for example:
 | paused              | Boolean                                                      |
 | playing             | Boolean                                                      |
 | reproducing         | Boolean. A player may be in the state of playing <br />but not reproducing, it may be buffering and still not be paused. |
+| waiting             | Boolean. When true it means that the player cannot start reproduction and is waiting to buffer enough content. |
 | duration            | Float, seconds                                               |
 | currentTime         | Float, seconds                                               |
 | remainingTime       | Float, seconds                                               |
@@ -37,10 +38,10 @@ See these implementations for example:
 
 ### Callbacks
 
-| Callback            |                                |
-| ------------------- | ------------------------------ |
-| onError(error)      |                                |
-| onEnded()           |                                |
-| onTimeupdate()      |                                |
-| onStateChange(code) | Paused, playing, buffering etc |
+| Callback        |                                                  |
+| --------------- | ------------------------------------------------ |
+| onError(error)  |                                                  |
+| onEnded()       |                                                  |
+| onTimeupdate()  | It is called as the reproduction progresses.     |
+| onStateChange() | Paused, playing, reproducing, buffering, waiting |
 
