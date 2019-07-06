@@ -110,7 +110,14 @@ interface Player
      * @param bool  formated If true, it will return an ISO 8601 formated string
      * @return float
      */
-    percent(perc, formated = false);
+    getSeconds(perc, formated = false);
+    
+    /**
+     * Returns the percentage corresponding to time
+     * @param time int,float,string Time, either a number or time formated hh:mm:ss
+     * @return float
+     */
+    getPercentage(time);
 
     // CALLBACKS
 

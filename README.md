@@ -25,16 +25,17 @@ See these implementations for example:
 
 ### Methods
 
-| Method                          |                                                              |
-| ------------------------------- | ------------------------------------------------------------ |
-| contructor(settings)            | @Settings: An settings objects, may differ for each vendor   |
-| setData(data)                   | Returns a promise to resolve once the player is ready to reproduce. <br />@Data: Object describing the media to be played, it may differ for each vendor, but preferably use properties such as: "href", "src". |
-| play(time = null)               | Starts/resumes reproduction, will skip to a particular section if informed.<br />@Time: Accepts <br /> - a float <br /> - an ISO 8601 formated string hh:mm:ss <br /> - a numerical string suffixed with % |
-| pause()                         |                                                              |
-| setCurrentTime(time)            | @Time: Accepts <br /> - a float <br /> - an ISO 8601 formated string hh:mm:ss <br /> - a numerical string suffixed with % |
-| seek(time)                      | Alias to setCurrentTime                                      |
-| setVolume(vol)                  | @Vol: It accepts an integer between 0 and 100 <br /> Or a float between 0.00 and 1.00 for compatibility sake |
-| percent(perc, formated = false) | Returns seconds corresponding to perc %. <br />@Perc: Float between 0 and 100 <br />@Formated: Bool, if true it will return an ISO 8601 formated as hh:mm:ss |
+| Method                             |                                                              |
+| ---------------------------------- | ------------------------------------------------------------ |
+| contructor(settings)               | @Settings: An settings objects, may differ for each vendor   |
+| setData(data)                      | Returns a promise to resolve once the player is ready to reproduce. <br />@Data: Object describing the media to be played, it may differ for each vendor, but preferably use properties such as: "href", "src". |
+| play(time = null)                  | Starts/resumes reproduction, will skip to a particular section if informed.<br />@Time: Accepts <br /> - a float <br /> - an ISO 8601 formated string hh:mm:ss <br /> - a numerical string suffixed with % |
+| pause()                            |                                                              |
+| setCurrentTime(time)               | @Time: Accepts <br /> - a float <br /> - an ISO 8601 formated string hh:mm:ss <br /> - a numerical string suffixed with % |
+| seek(time)                         | Alias to setCurrentTime                                      |
+| setVolume(vol)                     | @Vol: It accepts an integer between 0 and 100 <br /> Or a float between 0.00 and 1.00 for compatibility sake |
+| getSeconds(perc, formated = false) | Returns the seconds corresponding to perc %. <br />@Perc: Float between 0 and 100 <br />@Formated: Bool, if true it will return an ISO 8601 formated as hh:mm:ss |
+| getPercentage(time)                | Returns the percentage corresponding to time<br /> @Time: int, float, string, either a number or ISO 8601 formated string hh:mm:ss<br /> @Return float |
 
 ### Callbacks
 

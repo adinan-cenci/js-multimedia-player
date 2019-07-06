@@ -62,7 +62,7 @@ class Player
      * @param perc float Percentual
      * @param bool formated If true, it will return an ISO 8601 formated string
      */
-    percent(perc, formated = false)
+    getSeconds(perc, formated = false)
     {
         var seconds = Math.round((this.duration / 100) * perc);
 
@@ -73,6 +73,24 @@ class Player
         return Player.secondsToStringRepresentation(seconds);
     }
 
+    /**
+     * Returns the percentage corresponding to time
+     * @param time int|float|string Time, either a number or ISO 8601 formated string
+     * @return float
+     */
+    getPercentage(time)
+    {
+        var seconds;
+
+        if (typeof time == 'string' && time.indexOf(':') >= 0) {
+            seconds = Player.stringRepresentationToSeconds(time);
+        } else {
+            seconds = parseFloat(time);
+        }
+
+        return (seconds / this.duration) * 100
+    }
+
     sanitizeGetSeconds(time)
     {
         var seconds;
@@ -80,7 +98,7 @@ class Player
         if (typeof time == 'string' && time.indexOf(':') >= 0) {
             seconds = Player.stringRepresentationToSeconds(time);
         } else if (typeof time == 'string' && time.indexOf('%') >= 0) {
-            seconds = this.percent(parseInt(time));
+            seconds = this.getSeconds(parseInt(time));
         } else if (typeof time == 'string') {
             seconds = parseInt(time);
         } else {
