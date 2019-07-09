@@ -14,20 +14,22 @@ See these implementations for example:
 | paused              | Boolean                                                      |
 | playing             | Boolean                                                      |
 | reproducing         | Boolean. A player may be in the state of playing <br />but not reproducing, it may be buffering and still not be paused. |
+| buffering           | Boolean                                                      |
 | waiting             | Boolean. When true it means that the player cannot start reproduction and is waiting to buffer enough content. |
 | duration            | Float, seconds                                               |
 | currentTime         | Float, seconds                                               |
 | remainingTime       | Float, seconds                                               |
-| currentTimer        | String ISO 8601 formated as hh:mm:ss                         |
-| remainingTimer      | String ISO 8601 formated as hh:mm:ss                         |
-| currentPercentage   | Float 0 - 100                                                |
-| remainingPercentage | Float 0 - 100                                                |
+| durationTimer       | String, ISO 8601 formated as hh:mm:ss                        |
+| currentTimer        | String, ISO 8601 formated as hh:mm:ss                        |
+| remainingTimer      | String, ISO 8601 formated as hh:mm:ss                        |
+| currentPercentage   | Float, 0 - 100                                               |
+| remainingPercentage | Float, 0 - 100                                               |
 
 ### Methods
 
 | Method                             |                                                              |
 | ---------------------------------- | ------------------------------------------------------------ |
-| contructor(settings)               | @Settings: An settings objects, may differ for each vendor   |
+| contructor(settings)               | @Settings: May differ for each vendor                        |
 | setData(data)                      | Returns a promise to resolve once the player is ready to reproduce. <br />@Data: Object describing the media to be played, it may differ for each vendor, but preferably use properties such as: "href", "src". |
 | play(time = null)                  | Starts/resumes reproduction, will skip to a particular section if informed.<br />@Time: Accepts <br /> - a float <br /> - an ISO 8601 formated string hh:mm:ss <br /> - a numerical string suffixed with % |
 | pause()                            |                                                              |

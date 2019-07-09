@@ -18,6 +18,11 @@ class Player
         return this.duration - this.currentTime;
     }
 
+    get durationTimer()
+    {
+        return Player.secondsToStringRepresentation(this.duration);
+    }
+
     get currentTimer()
     {
         return Player.secondsToStringRepresentation(this.currentTime);
