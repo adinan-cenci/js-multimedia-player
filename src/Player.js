@@ -33,7 +33,7 @@ class Player
         return this.state.ended;
     }
 
-    get ended()
+    get volume()
     {
         return this.state.volume;
     }
