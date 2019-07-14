@@ -55,6 +55,6 @@ See these implementations for example:
 | onPause()                        |                                                              |
 | onEnded()                        |                                                              |
 | onTimeupdate()                   | Called as the reproduction progresses                        |
-| onWaiting()                      | Called when playback has stopped because of a temporary lack of data |
-| onPlaying()                      | Called playback is ready to start after having been paused or delayed due to lack of data |
+| onWaiting()                      | Called when when playback has stopped because of a temporary lack of data |
+| onPlaying()                      | Called when the playback is ready to start after having been paused due to lack of data |
 | onError(errorCode, errorMessage) |                                                              |
