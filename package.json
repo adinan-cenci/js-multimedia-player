@@ -1,7 +1,7 @@
 {
-  "name": "multimedia-player",
+  "name": "multimedia-player-interface",
   "version": "3.0.0",
-  "description": "media-player",
+  "description": "multimedia player",
   "main": "src/Player.js",
   "directories": {
     "example": "examples"
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adinan-cenci/js-multimedia-player.git"
+    "url": "git+https://github.com/adinan-cenci/js-multimedia-player-interface.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adinan-cenci/js-multimedia-player/issues"
+    "url": "https://github.com/adinan-cenci/js-multimedia-player-interface/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/js-multimedia-player#readme"
+  "homepage": "https://github.com/adinan-cenci/js-multimedia-player-interface#readme"
 }
