@@ -170,16 +170,42 @@ class Player
         console.log(msg);
     }
 
-    onError(error)
+    //--------------
+
+    onPlay()
     {
-        this.log(error);
+
+    }
+
+    onPause()
+    {
+
     }
 
     onEnded()
-    {}
+    {
+
+    }
 
     onTimeupdate()
-    {}
+    {
+
+    }
+
+    onWaiting()
+    {
+
+    }
+
+    onPlaying()
+    {
+
+    }    
+
+    onError(errorCode, errorMessage)
+    {
+        this.log(errorMessage);
+    }
 }
 
 Player.secondsToStringRepresentation = function(seconds)
