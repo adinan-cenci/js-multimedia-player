@@ -17,6 +17,7 @@ See these implementations for example:
 | reproducing | Indicates whether reproduction is in progress<br />@var Boolean<br />@readonly |
 | waiting | Indicates whether the player is unable to reproduce due to lack of data.<br />@var Boolean<br />@readonly |
 | ended | When true it means that the media has finished playing<br />@var Boolean<br />@readonly |
+| volume | Between 0 and 100<br />@var Integer<br />@readonly |
 | | |
 | duration | The length of the media in seconds<br />@var Double<br />@readonly |
 | currentTime | The current playback time in seconds<br />@var Double<br />@readonly |

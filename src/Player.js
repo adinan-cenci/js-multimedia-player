@@ -33,6 +33,11 @@ class Player
         return this.state.ended;
     }
 
+    get ended()
+    {
+        return this.state.volume;
+    }
+
     //--------------
 
     get remainingTime()
@@ -130,7 +135,7 @@ class Player
         if (typeof time == 'string' && time.indexOf(':') >= 0) {
             seconds = Player.stringRepresentationToSeconds(time);
         } else if (typeof time == 'string' && time.indexOf('%') >= 0) {
-            seconds = this.getSeconds(parseInt(time));
+            seconds = this.getTime(parseInt(time));
         } else if (typeof time == 'string') {
             seconds = parseInt(time);
         } else {
@@ -214,7 +219,8 @@ Player.prototype.state =
     reproducing     : false,
     buffering       : false,
     waiting         : false,
-    ended           : false
+    ended           : false,
+    volume          : 0
 }
 
 // export default Player;
