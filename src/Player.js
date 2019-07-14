@@ -3,6 +3,62 @@
 // abstract class
 class Player
 {
+    get paused()
+    {
+        return this.state.paused;
+    }
+
+    get playing()
+    {
+        return this.state.playing;
+    }
+
+    get buffering()
+    {
+        return this.state.buffering;
+    }
+
+    get reproducing()
+    {
+        return this.state.reproducing;
+    }
+
+    get waiting()
+    {
+        return this.state.waiting;
+    }
+
+    get ended()
+    {
+        return this.state.ended;
+    }
+
+    //--------------
+
+    get remainingTime()
+    {
+        return this.duration - this.currentTime;
+    }
+
+    //--------------
+
+    get formattedDuration()
+    {
+        return Player.secondsToStringRepresentation(this.duration);
+    }
+
+    get formattedCurrentTime()
+    {
+        return Player.secondsToStringRepresentation(this.currentTime);
+    }
+
+    get formattedRemainingTime()
+    {
+        return Player.secondsToStringRepresentation(this.remainingTime);
+    }
+
+    //--------------
+
     toggle()
     {
         if (this.playing) {
@@ -13,27 +69,8 @@ class Player
         this.play();
     }
 
-    get remainingTime()
-    {
-        return this.duration - this.currentTime;
-    }
+    //--------------
 
-    get durationTimer()
-    {
-        return Player.secondsToStringRepresentation(this.duration);
-    }
-
-    get currentTimer()
-    {
-        return Player.secondsToStringRepresentation(this.currentTime);
-    }
-
-    get remainingTimer()
-    {
-        return Player.secondsToStringRepresentation(this.remainingTime);
-    }
-
-    /** returns the completed percentage of the audio */
     get currentPercentage()
     {
         var time, duration;
@@ -57,32 +94,20 @@ class Player
         return 100 - this.currentPercentage;
     }
 
-    seek(time)
+    //--------------
+
+    getTime(perc)
     {
-        return this.setCurrentTime(time);
+        return Math.round((this.duration / 100) * perc);
     }
 
-    /**
-     * Returns the seconds that correspond to perc %
-     * @param perc float Percentual
-     * @param bool formated If true, it will return an ISO 8601 formated string
-     */
-    getSeconds(perc, formated = false)
+    getFormattedTime(perc)
     {
-        var seconds = Math.round((this.duration / 100) * perc);
-
-        if (! formated) {
-            return seconds;
-        }
-
-        return Player.secondsToStringRepresentation(seconds);
+        return Player.secondsToStringRepresentation(this.getTime(seconds));
     }
 
-    /**
-     * Returns the percentage corresponding to time
-     * @param time int|float|string Time, either a number or ISO 8601 formated string
-     * @return float
-     */
+    //--------------
+
     getPercentage(time)
     {
         var seconds;
@@ -95,6 +120,8 @@ class Player
 
         return (seconds / this.duration) * 100
     }
+
+    //--------------
 
     sanitizeGetSeconds(time)
     {
@@ -117,23 +144,23 @@ class Player
         return seconds;
     }
 
+    //--------------
+
     log(msg)
     {
         console.log(msg);
     }
-
-    onReady() {}
 
     onError(error)
     {
         this.log(error);
     }
 
-    onEnded() {}
+    onEnded()
+    {}
 
-    onTimeupdate() {}
-
-    onStateChange(code) {}
+    onTimeupdate()
+    {}
 }
 
 Player.secondsToStringRepresentation = function(seconds)
@@ -180,11 +207,15 @@ Player.stringRepresentationToSeconds = function(string)
     return seconds;
 }
 
-Player.prototype.paused         = false;
-Player.prototype.playing        = false;
-Player.prototype.reproducing    = false;
-Player.prototype.buffering      = false;
-Player.prototype.waiting        = false;
+Player.prototype.state =
+{
+    paused          : false,
+    playing         : false,
+    reproducing     : false,
+    buffering       : false,
+    waiting         : false,
+    ended           : false
+}
 
 // export default Player;
 module.exports = Player;
