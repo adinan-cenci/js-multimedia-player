@@ -3,6 +3,20 @@
 // abstract class
 class Player
 {
+    constructor()
+    {
+        this.state =
+        {
+            paused          : false,
+            playing         : false,
+            reproducing     : false,
+            buffering       : false,
+            waiting         : false,
+            ended           : false,
+            volume          : 100
+        }
+    }
+
     get paused()
     {
         return this.state.paused;
@@ -210,17 +224,6 @@ Player.stringRepresentationToSeconds = function(string)
     seconds = hor * 3600 + min * 60 + sec;
 
     return seconds;
-}
-
-Player.prototype.state =
-{
-    paused          : false,
-    playing         : false,
-    reproducing     : false,
-    buffering       : false,
-    waiting         : false,
-    ended           : false,
-    volume          : 0
 }
 
 // export default Player;
