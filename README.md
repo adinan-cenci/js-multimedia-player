@@ -1,6 +1,6 @@
 This package describes an API for multimedia players, a base in common so different vendors may be more easily interchanged.
 
-It also offers an a base class to write wrappers in order to implement the API.
+It also offers an a base class to help write wrappers and implement the API.
 
 See these implementations for example:
 
