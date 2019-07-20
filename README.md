@@ -1,9 +1,12 @@
-This package describes an API for multimedia players. It offers an interface ( as well a base class ) to write wrappers around different multimedia players, so they may be more easily interchanged.
+This package describes an API for multimedia players, a base in common so different vendors may be more easily interchanged.
+
+It also offers an a base class to write wrappers in order to implement the API.
 
 See these implementations for example:
 
-- [YouTube embbed api](https://github.com/adinan-cenci/js-youtube-wrapper)
-- [Native audio/video tags](https://github.com/adinan-cenci/js-html-multimedia-wrapper)
+- [A wrapper for YouTube's embbed api](https://github.com/adinan-cenci/js-youtube-wrapper)
+- [A wrapper for Deezer's Javascript SDK](https://github.com/adinan-cenci/js-deezer-wrapper)
+- [A wrapper for the HTML native audio and video tags](https://github.com/adinan-cenci/js-html-multimedia-wrapper)
 
 ## The interface
 
@@ -41,9 +44,9 @@ See these implementations for example:
 | seek(time) | Seeks the media to the new time that may be represented as:<br />- in seconds as a double<br />- an ISO 8601 formatted string ( hh:mm:ss )<br />- a numerical string suffixed with %<br />@time Number\|String time |
 | play(time = null) | Begins playback of the media. If time is informed it also seeks the media to the new time. Accepts the same parameter as seek.<br />@param Number\|String |
 | pause() | |
-| getTime(perc) | Returns the time in seconds corresponding to perc %. <br />@param Number perc Between 0 and 100 <br />@return Double |
+| getTime(perc) | Returns the time corresponding to perc % in seconds. <br />@param Number perc Between 0 and 100 <br />@return Double |
 | getFormattedTime(perc) | Returns the time corresponding to perc % as an ISO 8601 formatted string ( hh:mm:ss ). <br />@param Number perc Between 0 and 100<br />@param String |
-| getPercentage(time) | Returns the playback's percentage corresponding to time<br />@param Double\|String Seconds or an ISO 8601 formatted string ( hh:mm: ss) |
+| getPercentage(time) | Returns the playback's percentage corresponding to time<br />@param Double\|String Seconds in the form of a double or an ISO 8601 formatted string ( hh:mm: ss) |
 | | |
 | setVolume(vol) | @param Number vol Between 0 and 100 |
 

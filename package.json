@@ -1,6 +1,6 @@
 {
   "name": "multimedia-player-interface",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "multimedia player",
   "main": "src/Player.js",
   "directories": {
