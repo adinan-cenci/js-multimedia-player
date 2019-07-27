@@ -54,7 +54,7 @@ See these implementations for example:
 
 ### Events
 
-| Callback   |                                                              |
+| Event      |                                                              |
 | ---------- | ------------------------------------------------------------ |
 | play       |                                                              |
 | pause      |                                                              |
