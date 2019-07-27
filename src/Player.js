@@ -1,10 +1,13 @@
 'use strict';
 
-// abstract class
-class Player
+const EventfulObject = require('./EventfulObject.js');
+
+class Player extends EventfulObject
 {
     constructor()
     {
+        super();
+
         this.state =
         {
             paused          : false,
@@ -169,43 +172,6 @@ class Player
     {
         console.log(msg);
     }
-
-    //--------------
-
-    onPlay()
-    {
-
-    }
-
-    onPause()
-    {
-
-    }
-
-    onEnded()
-    {
-
-    }
-
-    onTimeupdate()
-    {
-
-    }
-
-    onWaiting()
-    {
-
-    }
-
-    onPlaying()
-    {
-
-    }    
-
-    onError(errorCode, errorMessage)
-    {
-        this.log(errorMessage);
-    }
 }
 
 Player.secondsToStringRepresentation = function(seconds)
@@ -252,5 +218,4 @@ Player.stringRepresentationToSeconds = function(string)
     return seconds;
 }
 
-// export default Player;
 module.exports = Player;

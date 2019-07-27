@@ -8,7 +8,7 @@ See these implementations for example:
 - [A wrapper for Deezer's Javascript SDK](https://github.com/adinan-cenci/js-deezer-wrapper)
 - [A wrapper for the HTML native audio and video tags](https://github.com/adinan-cenci/js-html-multimedia-wrapper)
 
-## The interface
+## The Player interface
 
 ### Properties
 
@@ -49,15 +49,17 @@ See these implementations for example:
 | getPercentage(time) | Returns the playback's percentage corresponding to time<br />@param Double\|String Seconds in the form of a double or an ISO 8601 formatted string ( hh:mm: ss) |
 | | |
 | setVolume(vol) | @param Number vol Between 0 and 100 |
+| addEventListener(eventName, listener) | @param String eventName<br />@param function listener<br />@return Player |
+| removeEventListener(eventName, listener) | @param String eventName<br />@param function listener<br />@return Player |
 
-### Callbacks
+### Events
 
-| Callback                         |                                                              |
-| -------------------------------- | ------------------------------------------------------------ |
-| onPlay()                         |                                                              |
-| onPause()                        |                                                              |
-| onEnded()                        |                                                              |
-| onTimeupdate()                   | Called as the reproduction progresses                        |
-| onWaiting()                      | Called when when playback has stopped because of a temporary lack of data |
-| onPlaying()                      | Called when the playback is ready to start after having been paused due to lack of data |
-| onError(errorCode, errorMessage) |                                                              |
+| Callback   |                                                              |
+| ---------- | ------------------------------------------------------------ |
+| play       |                                                              |
+| pause      |                                                              |
+| ended      |                                                              |
+| timeupdate | Fired as the reproduction progresses                         |
+| waiting    | Fired when when playback has stopped because of a temporary lack of data |
+| playing    | Fired when the playback is ready to start after having been paused due to lack of data |
+| error      | Passes an object to the listener containing two proprieties: "errorCode" and "errorMessage". |
