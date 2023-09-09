@@ -28,6 +28,21 @@ class Foundation extends HTMLElement
     }
 
     /**
+     * Appends the element to another.
+     * It must return a promise to be resolved once
+     * the player is ready to play.
+     *
+     * @param HTMLElement element To be appended to
+     *
+     * @return Promise
+     */
+    appendTo(element)
+    {
+        element.append(this);
+        return new Promise(async (success, fail) => { success(); });
+    }
+
+    /**
      * @return bool
      */
     get isPaused()
