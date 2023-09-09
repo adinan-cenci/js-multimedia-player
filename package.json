@@ -1,9 +1,9 @@
 {
   "name": "multimedia-player-interface",
   "author": "Adinan Cenci <adinancenci@protonmail.com>",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "multimedia player",
-  "main": "src/Player.js",
+  "main": "index.js",
   "directories": {
     "example": "examples"
   },
@@ -14,8 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/adinan-cenci/js-multimedia-player-interface.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-player-interface/issues"
