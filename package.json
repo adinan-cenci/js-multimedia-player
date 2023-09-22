@@ -1,7 +1,7 @@
 {
   "name": "multimedia-player-interface",
   "author": "Adinan Cenci <adinancenci@protonmail.com>",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "multimedia player",
   "main": "index.js",
   "directories": {

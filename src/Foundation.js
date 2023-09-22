@@ -1,13 +1,27 @@
 'use strict';
 
 /**
- * player:error Passes an object to the listener containing two proprieties: "errorCode" and "errorMessage".
- * player:ended
- * player:playing Fired when the playback is ready to start after having been paused due to lack of data
- * player:play
- * player:pause
- * player:waiting Fired when when playback has stopped because of a temporary lack of data
- * player:timeupdate Fired as the reproduction progresses
+ * @event 'player:error'
+ * @description Fired when an error ocurred at any moment in the lifecycle.
+ * The event is detailed by an error object containing two proprieties: "errorCode" and "errorMessage".
+ *
+ * @event 'player:ended'
+ * @description Fired when the playback has reached its end.
+ *
+ * @event 'player:playing'
+ * @description Fired when the playback is ready to start after having been previously paused due to lack of data.
+ *
+ * @event 'player:play'
+ * @description Fired when the player starts playing.
+ *
+ * @event 'player:pause'
+ * @description Fired when the player is paused.
+ *
+ * @event 'player:waiting'
+ * @description Fired when when playback has stopped because of a temporary lack of data.
+ *
+ * @event 'player:timeupdate'
+ * @description Continualy fired as the reproduction progresses.
  */
 class Foundation extends HTMLElement 
 {
@@ -28,18 +42,40 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Appends the element to another.
-     * It must return a promise to be resolved once
-     * the player is ready to play.
+     * Appends the media player to a specified HTML element and returns a promise.
+     * This promise is resolved once the player is fully set up and ready to be used.
+     * Note that readiness to play and readiness to reproduce may differ; see the 'playing()' method.
      *
-     * @param HTMLElement element To be appended to
+     * @param HTMLElement parentElement
+     *   The HTML element to which the player will be appended.
      *
      * @return Promise
+     *   A promise that resolves when the player is set up and ready for use.
      */
-    appendTo(element)
+    appendTo(parentElement)
     {
-        element.append(this);
-        return new Promise(async (success, fail) => { success(); });
+        parentElement.append(this);
+        return new Promise(async (success, fail) => { return success(); });
+    }
+
+    /**
+     * Basically the same as appendTo(), but the player will be inserted
+     * before the first child of the specified element.
+     */
+    prependTo(parentElement)
+    {
+        parentElement.prepend(this);
+        return new Promise(async (success, fail) => { return success(); });
+    }
+
+    /**
+     * Basically the same as appendTo(), but the player will be inserted
+     * into the siblingElement's parent, after the siblingElement.
+     */
+    appendAfter(siblingElement)
+    {
+        siblingElement.after(this);
+        return new Promise(async (success, fail) => { return success(); });
     }
 
     /**
@@ -59,16 +95,11 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * @return bool
-     */
-    get isBuffering()
-    {
-        return this.state.isBuffering;
-    }
-
-    /**
-     * Indicates whether reproduction is in progress.
-     * When true, isWaiting must be false.
+     * Indicates whether media reproduction is currently in progress.
+     *
+     * This property differs from 'isPlaying' in that a player can be "playing" while
+     * waiting for the buffer to load, but it may not be actively reproducing content.
+     * When 'isReproducing' is 'true', 'isWaiting' must be 'false'.
      * 
      * @return bool
      */
@@ -79,7 +110,7 @@ class Foundation extends HTMLElement
 
     /**
      * Indicates whether the player is unable to reproduce due to lack of data.
-     * When true, isReproducing must be false.
+     * When 'true', isReproducing must be false.
      *
      * @return bool
      */
@@ -89,9 +120,27 @@ class Foundation extends HTMLElement
     }
 
     /**
+     * Indicates whether the player is currently buffering content.
+     *
+     * 'isBuffering' differs from 'isWaiting' in that 'isWaiting' is only 'true'
+     * when media reproduction has caught up with the buffer.
+     *
+     * A player may be capable of buffering and reproducing content simultaneously.
+     * Therefore, it is possible for 'isBuffering' to be 'true' while 'isWaiting' is 'false'.
+     *
+     * @return bool
+     *   'true' if the player is currently buffering content; otherwise, 'false'.
+     */
+    get isBuffering()
+    {
+        return this.state.isBuffering;
+    }
+
+    /**
      * Indicates whether the media has finished playing.
      *
      * @return bool
+     *   'false' if isReproducing is 'true'.
      */
     get isEnded()
     {
@@ -111,17 +160,19 @@ class Foundation extends HTMLElement
     /**
      * Return the current playback time in seconds.
      * 
-     * @return float seconds
+     * @return float
+     *   Seconds
      */
     get currentTime() 
     {
-        // To implement
+        // Implementation specific.
     }
 
     /**
-     * Return the current playback time formated as an ISO 8601 string ( hh:mm:ss )
+     * Retrieves the current playback time formatted as an ISO 8601 string (hh:mm:ss).
      *
      * @return string
+     *   The formatted current playback time.
      */
     get currentTimeFormatted()
     {
@@ -129,9 +180,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Return the current playback time as a parcentage of the full duration.
+     * Retrieves the current playback time as a parcentage of the full duration.
      *
      * @return float
+     *   A percentage.
      */
     get currentTimePercentage()
     {
@@ -162,7 +214,7 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Return the remaining time as an ISO 8601 string ( hh:mm:ss )
+     * Return the remaining time as an ISO 8601 string ( hh:mm:ss ).
      *
      * @return string
      */
@@ -172,7 +224,7 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Return the remaining time as a percentage.
+     * Return the remaining time as a percentage of the full duration.
      *
      * @return float
      */
@@ -188,11 +240,11 @@ class Foundation extends HTMLElement
      */
     get duration() 
     {
-        // To implement
+        // Implementation specific.
     }
 
     /**
-     * Return the duration of the media as an ISO 8601 string ( hh:mm:ss )
+     * Return the duration of the media as an ISO 8601 string ( hh:mm:ss ).
      *
      * @return string
      */
@@ -202,11 +254,13 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Returns in seconds the time corresponding to percentage%.
+     * Returns the time in seconds corresponding to a given percentage of the full duration.
      *
-     * @param float|int percentage Between 0 and 100
+     * @param int|float percentage
+     *   The percentage between 0 and 100.
      *
-     * @return float|int seconds
+     * @return int|float
+     *   The time in seconds corresponding to the given percentage.
      */
     getTime(percentage)
     {
@@ -214,9 +268,11 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Returns in a ISO 8601 formatted string ( hh:mm:ss ) the time corresponding to percentage%.
+     * Returns the time corresponding to a given percentage of the full duration
+     * as an ISO 8601 formatted string (hh:mm:ss).
      *
-     * @param float|int perc Between 0 and 100
+     * @param float|int perc
+     *   Between 0 and 100.
      *
      * @return string
      */
@@ -226,9 +282,11 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Returns the playback's percentage corresponding to time
+     * Returns the playback's percentage corresponding to time.
      *
-     * @param float|string Seconds in the form of a float or an ISO 8601 formatted string ( hh:mm:ss )
+     * @param float|string
+     *   Seconds in the form of a float or
+     *   an ISO 8601 formatted string ( hh:mm:ss ).
      * 
      * @return float
      */
@@ -248,36 +306,43 @@ class Foundation extends HTMLElement
     //--------------
 
     /**
-     * Seeks the media to the new position
+     * Seeks the media to the new position.
      *
-     * @time int|float|string time, it accepts:
-     * - seconds as a float or int
-     * - an ISO 8601 formatted string ( hh:mm:ss )
-     * - a percentege ( a numerical string suffixed by % )
+     * @time int|float|string time
+     *   It accepts:
+     *   - Seconds as a float or int.
+     *   - An ISO 8601 formatted string ( hh:mm:ss ).
+     *   - A percentege ( a numerical string suffixed by % ).
      */
     seek(time) 
     {
-        // To implement
+        // Implementation specific.
     }
 
     /**
      * Starts/resume the reproduction of the media.
-     * It accepts the same parameters as seek()
+     * It accepts the same parameters as seek().
      *
-     * @time int|float|string time
+     * @time int|float|string time.
      *
      * @return Promise
      */
     play(time = null) 
     {
-        // To implement
+        // Implementation specific.
     }
 
+    /**
+     * Pauses the player.
+     */
     pause() 
     {
-        // To implement
+        // Implementation specific.
     }
 
+    /**
+     * Resumes playing, or pauses, it depends on the current state.
+     */
     toggle()
     {
         this.isPlaying
@@ -288,12 +353,17 @@ class Foundation extends HTMLElement
     //--------------
 
     /**
-     * Transform everything into seconds, 
-     * ISO 8601 string, n% strings etc
+     * Transform everything into seconds,
+     * ISO 8601 string, perc% strings etc.
      *
-     * @param float|int|string time 
+     * @param float|int|string time
+     *   It accepts:
+     *   - ISO 8601 string, transforming it in seconds.
+     *   - A percentege ( a numerical string suffixed by % ),
+     *     it depends on the duration of the media.
      *
      * @return float
+     *   Seconds.
      */
     sanitizeGetSeconds(time)
     {
@@ -316,21 +386,44 @@ class Foundation extends HTMLElement
         return seconds;
     }
 
-    //--------------
-
+    /**
+     * An helper function, more for briviety sake than anything else.
+     *
+     * @param string eventName.
+     * @param mixed detail
+     * @param bool bubbles
+     *
+     * @return bool
+     */
     fireEvent(eventName, detail, bubbles = true)
     {
-        return this.dispatchEvent(new CustomEvent(eventName, {
-            bubbles: bubbles,
-            detail: detail
-        }));
+        var options = {
+            bubbles
+        };
+
+        if (detail != null) {
+            options.detail = detail;
+        }
+
+        var event = new CustomEvent(eventName, options);
+
+        return this.dispatchEvent(event);
     }
 
     log(msg)
     {
+        // Implementation specific.
         console.log(msg);
     }
 
+    /**
+     * Format seconds into a ISO 8601 string ( hh:mm:ss ).
+     *
+     * @param float|int seconds
+     *
+     * @returns string
+     *   An ISO 8601 string.
+     */
     static secondsToStringRepresentation(seconds)
     {
         if (isNaN(seconds)) {
@@ -347,15 +440,24 @@ class Foundation extends HTMLElement
         min     = minutes - (hours * 60);
         sec     = seconds - (minutes * 60);
     
-        min     = min < 10 ? '0'+min : min;
-        sec     = sec < 10 ? '0'+sec : sec;
+        min     = min < 10 ? '0' + min : min;
+        sec     = sec < 10 ? '0' + sec : sec;
     
-        string = min+':'+sec;
-        string = hor > 0 ? hor+':'+string : string;
+        string = min + ':' + sec;
+        string = hor > 0 ? hor + ':' + string : string;
     
         return string;
     }
-    
+
+    /**
+     * Parses an ISO 8601 string ( hh:mm:ss ).
+     *
+     * @param string
+     *   An ISO 8601 string ( hh:mm:ss ).
+     *
+     * @returns int
+     *   The equivalent in seconds.
+     */
     static stringRepresentationToSeconds(string)
     {
         var seconds, matches, hor, min, sec;
@@ -370,7 +472,7 @@ class Foundation extends HTMLElement
         min = parseInt(matches[matches.length - 2] || 0);
         hor = parseInt(matches[matches.length - 3] || 0);
     
-        seconds = hor * 3600 + min * 60 + sec;
+        seconds = (hor * 3600) + (min * 60) + sec;
     
         return seconds;
     }
