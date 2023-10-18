@@ -1,22 +1,27 @@
 {
   "name": "multimedia-player-interface",
-  "author": "Adinan Cenci <adinancenci@protonmail.com>",
   "version": "3.2.0",
   "description": "multimedia player",
+  "author": "Adinan Cenci <adinancenci@protonmail.com>",
+  "license": "MIT",
   "main": "index.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-docs": "jsdoc ./src --configure jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adinan-cenci/js-multimedia-player-interface.git"
   },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/adinan-cenci/js-multimedia-player-interface/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/js-multimedia-player-interface#readme"
+  "homepage": "https://github.com/adinan-cenci/js-multimedia-player-interface#readme",
+  "devDependencies": {
+    "clean-jsdoc-theme": "^4.2.13",
+    "jsdoc": "^4.0.2"
+  }
 }

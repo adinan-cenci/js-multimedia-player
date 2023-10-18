@@ -1,27 +1,57 @@
 'use strict';
 
 /**
- * @event 'player:error'
- * @description Fired when an error ocurred at any moment in the lifecycle.
- * The event is detailed by an error object containing two proprieties: "errorCode" and "errorMessage".
+ * Continualy fired as the reproduction progresses.
  *
- * @event 'player:ended'
- * @description Fired when the playback has reached its end.
- *
- * @event 'player:playing'
- * @description Fired when the playback is ready to start after having been previously paused due to lack of data.
- *
- * @event 'player:play'
- * @description Fired when the player starts playing.
- *
- * @event 'player:pause'
- * @description Fired when the player is paused.
- *
- * @event 'player:waiting'
- * @description Fired when when playback has stopped because of a temporary lack of data.
- *
- * @event 'player:timeupdate'
- * @description Continualy fired as the reproduction progresses.
+ * @event Foundation#player:timeupdate
+ */
+
+/**
+ * Fired when an error ocurred at any moment in the lifecycle. <br>
+ * It is detailed by two proprieties: <code>errorCode</code> and <code>errorMessage</code>
+ * 
+ * @event Foundation#player:error
+ * @type {object}
+ */
+
+/**
+ * Fired when the reproduction has reached its end.
+ * 
+ * @event Foundation#player:ended
+ */
+
+/**
+ * Fired when when reproduction has stopped because of a temporary lack of data.
+ * 
+ * @event Foundation#player:waiting
+ */
+
+/**
+ * Fired when the reproduction is ready to start after having been previously paused due to lack of data.
+ * 
+ * @event Foundation#player:playing
+ */
+
+/**
+ * Fired when the player starts playing.
+ * 
+ * @event Foundation#player:play
+ */
+
+/**
+ * Fired when the player is paused.
+ * 
+ * @event Foundation#player:pause
+ */
+
+/**
+ * Base class and interface.
+ * 
+ * @fires Foundation#player:playing
+ * @fires Foundation#player:waiting
+ * @fires Foundation#player:ended
+ * @fires Foundation#player:error
+ * @fires Foundation#player:timeupdate
  */
 class Foundation extends HTMLElement 
 {
@@ -42,15 +72,14 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Appends the media player to a specified HTML element and returns a promise.
-     * This promise is resolved once the player is fully set up and ready to be used.
-     * Note that readiness to play and readiness to reproduce may differ; see the 'playing()' method.
+     * Appends the media player to a specified HTML.
      *
-     * @param HTMLElement parentElement
-     *   The HTML element to which the player will be appended.
+     * @param {HTMLElement} parentElement
+     *   The HTML element to which the player will be appended to.
      *
-     * @return Promise
-     *   A promise that resolves when the player is set up and ready for use.
+     * @return {Promise}
+     *   This promise is resolved once the player is fully set up and ready to be used.<br>
+     *   <b>Note</b>: Readiness to play and readiness to reproduce are not the same; see the <code>playing()</code> method.
      */
     appendTo(parentElement)
     {
@@ -59,8 +88,14 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Basically the same as appendTo(), but the player will be inserted
-     * before the first child of the specified element.
+     * Inserts the player before the first child of the <code>parentElement</code>.
+     * 
+     * @param {HTMLElement} parentElement
+     *   The HTML element to which the player will be appended to.
+     *
+     * @return {Promise}
+     *   This promise is resolved once the player is fully set up and ready to be used.<br>
+     *   <b>Note</b>: Readiness to play and readiness to reproduce are not the same; see the <code>playing()</code> method.
      */
     prependTo(parentElement)
     {
@@ -69,8 +104,15 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Basically the same as appendTo(), but the player will be inserted
-     * into the siblingElement's parent, after the siblingElement.
+     * Inserts the player in the children list of the <code>siblingElement</code>'s parent, 
+     * just after the <code>siblingElement</code>.
+     * 
+     * @param {HTMLElement} siblingElement
+     *   The HTML element to which the player will proceed.
+     *
+     * @return {Promise}
+     *   This promise is resolved once the player is fully set up and ready to be used.<br>
+     *   <b>Note</b>: Readiness to play and readiness to reproduce are not the same; see the <code>playing()</code> method.
      */
     appendAfter(siblingElement)
     {
@@ -79,7 +121,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * @return bool
+     * Self-explanatory.
+     *
+     * @readonly
+     * @type {bool}
      */
     get isPaused()
     {
@@ -87,7 +132,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * @return bool
+     * Self-explanatory.
+     *
+     * @readonly
+     * @type {bool}
      */
     get isPlaying()
     {
@@ -95,13 +143,15 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Indicates whether media reproduction is currently in progress.
+     * Indicates whether reproduction is currently in progress.<br>
      *
-     * This property differs from 'isPlaying' in that a player can be "playing" while
-     * waiting for the buffer to load, but it may not be actively reproducing content.
-     * When 'isReproducing' is 'true', 'isWaiting' must be 'false'.
+     * This property differs from <code>isPlaying</code> in that a player can be "playing" while
+     * waiting for the buffer to load, but it may not be actively "reproducing" content.<br>
+     *
+     * When <code>isReproducing</code> is <code>true</code>, <code>isWaiting</code> must be <code>false</code>.
      * 
-     * @return bool
+     * @readonly
+     * @type {bool}
      */
     get isReproducing()
     {
@@ -109,10 +159,11 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Indicates whether the player is unable to reproduce due to lack of data.
-     * When 'true', isReproducing must be false.
+     * Indicates whether the player is unable to reproduce due to lack of data.<br>
+     * When <code>true</code>, <code>isReproducing</code> must be <code>false</code>.
      *
-     * @return bool
+     * @readonly
+     * @type {bool}
      */
     get isWaiting()
     {
@@ -120,16 +171,16 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Indicates whether the player is currently buffering content.
+     * Indicates whether the player is currently buffering content.<br>
      *
-     * 'isBuffering' differs from 'isWaiting' in that 'isWaiting' is only 'true'
-     * when media reproduction has caught up with the buffer.
+     * <code>isBuffering</code> differs from <code>isWaiting</code> in that <code>isWaiting</code> is only <code>true</code>
+     * when reproduction has caught up with the buffer.<br>
      *
-     * A player may be capable of buffering and reproducing content simultaneously.
-     * Therefore, it is possible for 'isBuffering' to be 'true' while 'isWaiting' is 'false'.
+     * A player may be capable of buffering and reproducing content simultaneously.<br>
+     * Therefore, it is possible for <code>isBuffering</code> to be <code>true</code> while <code>isWaiting</code> is <code>false</code>.<br>
      *
-     * @return bool
-     *   'true' if the player is currently buffering content; otherwise, 'false'.
+     * @readonly
+     * @type {bool}
      */
     get isBuffering()
     {
@@ -137,10 +188,11 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Indicates whether the media has finished playing.
+     * Indicates whether the media has finished playing.<br>
+     * It must be <code>false</code> when <code>isReproducing</code> is <code>true</code>.
      *
-     * @return bool
-     *   'false' if isReproducing is 'true'.
+     * @readonly
+     * @type {bool}
      */
     get isEnded()
     {
@@ -148,9 +200,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * An integer between 0 and 100
-     * 
-     * @return int
+     * Returns the volume, an integer between 0 and 100.
+     *
+     * @readonly
+     * @type {integer}
      */
     get volume()
     {
@@ -160,8 +213,8 @@ class Foundation extends HTMLElement
     /**
      * Return the current playback time in seconds.
      * 
-     * @return float
-     *   Seconds
+     * @readonly
+     * @type {float}
      */
     get currentTime() 
     {
@@ -169,10 +222,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Retrieves the current playback time formatted as an ISO 8601 string (hh:mm:ss).
+     * Retrieves the current playback time formatted as an ISO 8601 string ( hh:mm:ss ).
      *
-     * @return string
-     *   The formatted current playback time.
+     * @readonly
+     * @type {string}
      */
     get currentTimeFormatted()
     {
@@ -180,10 +233,10 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Retrieves the current playback time as a parcentage of the full duration.
+     * Retrieves the current playback time as a parcentage of the <code>duration</code>.
      *
-     * @return float
-     *   A percentage.
+     * @readonly
+     * @type {float}
      */
     get currentTimePercentage()
     {
@@ -206,7 +259,8 @@ class Foundation extends HTMLElement
     /**
      * Return the remaining time in seconds.
      *
-     * @return float
+     * @type {float}
+     * @readonly
      */
     get remainingTime()
     {
@@ -216,7 +270,8 @@ class Foundation extends HTMLElement
     /**
      * Return the remaining time as an ISO 8601 string ( hh:mm:ss ).
      *
-     * @return string
+     * @readonly
+     * @type {string}
      */
     get remainingTimeFormatted()
     {
@@ -224,9 +279,10 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Return the remaining time as a percentage of the full duration.
+     * Return the remaining time as a percentage of the <code>duration</code>.
      *
-     * @return float
+     * @readonly
+     * @type {float}
      */
     get remainingTimePercentage()
     {
@@ -236,7 +292,8 @@ class Foundation extends HTMLElement
     /**
      * Return the length of the media in seconds.
      *
-     * @return float seconds
+     * @readonly
+     * @type {float}
      */
     get duration() 
     {
@@ -246,7 +303,8 @@ class Foundation extends HTMLElement
     /**
      * Return the duration of the media as an ISO 8601 string ( hh:mm:ss ).
      *
-     * @return string
+     * @readonly
+     * @type {string}
      */
     get durationFormatted()
     {
@@ -254,13 +312,13 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Returns the time in seconds corresponding to a given percentage of the full duration.
+     * Returns the time in seconds corresponding to a given <code>percentage</code> of the <code>duration</code>.
      *
-     * @param int|float percentage
-     *   The percentage between 0 and 100.
+     * @param {number} percentage
+     *   The percentage of the <code>duration</duration>.
      *
-     * @return int|float
-     *   The time in seconds corresponding to the given percentage.
+     * @return {number}
+     *   Seconds.
      */
     getTime(percentage)
     {
@@ -268,13 +326,14 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Returns the time corresponding to a given percentage of the full duration
-     * as an ISO 8601 formatted string (hh:mm:ss).
+     * Returns the time corresponding to a given <code>percentage</code> of the <code>duration</code>
+     * as an ISO 8601 formatted string ( hh:mm:ss ).
      *
-     * @param float|int perc
+     * @param {number} percentage
      *   Between 0 and 100.
      *
-     * @return string
+     * @return {string}
+     *   ISO 8601
      */
     getTimeFormatted(percentage)
     {
@@ -282,13 +341,14 @@ class Foundation extends HTMLElement
     }
  
     /**
-     * Returns the playback's percentage corresponding to time.
+     * Returns the playback's percentage corresponding to <code>time</code>.
      *
-     * @param float|string
-     *   Seconds in the form of a float or
-     *   an ISO 8601 formatted string ( hh:mm:ss ).
+     * @param {number|string} time
+     *   Seconds in the form of a number <br>
+     *   or an ISO 8601 formatted string ( hh:mm:ss ).
      * 
-     * @return float
+     * @return {number}
+     *   Seconds
      */
     getPercentage(time)
     {
@@ -308,10 +368,12 @@ class Foundation extends HTMLElement
     /**
      * Seeks the media to the new position.
      *
-     * @time int|float|string time
-     *   It accepts:
-     *   - Seconds as a float or int.
-     *   - An ISO 8601 formatted string ( hh:mm:ss ).
+     * @abstract
+     *
+     * @param {number|string} time
+     *   It accepts:<br>
+     *   - Seconds as a float or int.<br>
+     *   - An ISO 8601 formatted string ( hh:mm:ss ).<br>
      *   - A percentege ( a numerical string suffixed by % ).
      */
     seek(time) 
@@ -320,12 +382,20 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * Starts/resume the reproduction of the media.
-     * It accepts the same parameters as seek().
+     * Starts/resume the reproduction of the media.<br>
+     * It accepts the same parameters as <code>seek()</code>.
      *
-     * @time int|float|string time.
+     * @fires Foundation#player:play
+     * 
+     * @param {number|string|null} time.
+     *   Will seek to <code>time</code> when informed.<br>
+     *   It accepts:<br>
+     *   - Seconds as a float or int.<br>
+     *   - An ISO 8601 formatted string ( hh:mm:ss ).<br>
+     *   - A percentege ( a numerical string suffixed by % ).
      *
-     * @return Promise
+     * @return {Promise}
+     *   It will resolved when reproduction has been started, or is rejected if for any reason playback cannot be started.
      */
     play(time = null) 
     {
@@ -333,6 +403,8 @@ class Foundation extends HTMLElement
     }
 
     /**
+     * @fires Foundation#player:pause
+     * 
      * Pauses the player.
      */
     pause() 
@@ -356,13 +428,15 @@ class Foundation extends HTMLElement
      * Transform everything into seconds,
      * ISO 8601 string, perc% strings etc.
      *
-     * @param float|int|string time
-     *   It accepts:
-     *   - ISO 8601 string, transforming it in seconds.
+     * @private
+     *
+     * @param {number|string} time
+     *   It accepts:<br>
+     *   - ISO 8601 string, transforming it in seconds.<br>
      *   - A percentege ( a numerical string suffixed by % ),
      *     it depends on the duration of the media.
      *
-     * @return float
+     * @return {number}
      *   Seconds.
      */
     sanitizeGetSeconds(time)
@@ -387,13 +461,15 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * An helper function, more for briviety sake than anything else.
+     * An helper function to fire a custom event.
      *
-     * @param string eventName.
-     * @param mixed detail
-     * @param bool bubbles
+     * @private
+     * 
+     * @param {string} eventName.
+     * @param {mixed} detail
+     * @param {bool} bubbles
      *
-     * @return bool
+     * @return {bool}
      */
     fireEvent(eventName, detail, bubbles = true)
     {
@@ -419,9 +495,11 @@ class Foundation extends HTMLElement
     /**
      * Format seconds into a ISO 8601 string ( hh:mm:ss ).
      *
-     * @param float|int seconds
+     * @private
      *
-     * @returns string
+     * @param {number} seconds
+     *
+     * @returns {string}
      *   An ISO 8601 string.
      */
     static secondsToStringRepresentation(seconds)
@@ -452,10 +530,12 @@ class Foundation extends HTMLElement
     /**
      * Parses an ISO 8601 string ( hh:mm:ss ).
      *
-     * @param string
+     * @private
+     *
+     * @param {string}
      *   An ISO 8601 string ( hh:mm:ss ).
      *
-     * @returns int
+     * @returns {number}
      *   The equivalent in seconds.
      */
     static stringRepresentationToSeconds(string)

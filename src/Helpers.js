@@ -1,6 +1,21 @@
-
+/**
+ * Helper class.
+ */
 class Helpers 
 {
+    /**
+     * A helpful method to load external scripts.
+     *
+     * @static
+     *
+     * @param {string} src
+     *   The uri to the script.
+     * @param {HTMLElement} appendTo
+     *   The element to append the script, it defaults to the document's body.
+     *
+     * @returns {Promise}
+     *   To be resolved when the script has been loaded.
+     */
     static async loadExternalJs(src, appendTo = null)
     {
         return new Promise(async function(success, fail)

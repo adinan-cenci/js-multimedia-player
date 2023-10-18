@@ -1,6 +1,6 @@
 # Multi media player interface
 
-This package describes an API for multimedia players, a base in common so different vendors may be more easily interchanged.
+This package describes an API for multimedia players, a base in common so different vendors may be interchanged.
 
 It also offers an a base class to help write wrappers and implement the API.
 
