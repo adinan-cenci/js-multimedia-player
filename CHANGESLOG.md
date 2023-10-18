@@ -1,12 +1,18 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
+### 4.0.0 - 2023-10-18
+## Changed
+- Changed the library's name.
+- Updated the documentation, generated JSDoc documents.
+
+---
+
 ### 3.2.0 - 2023-09-22
-### Updated
+## Updated
 - The documentation
 
-### Added
+## Added
 - Foundation.prependTo()
 - Foundation.appendAfter()
 

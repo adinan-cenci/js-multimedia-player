@@ -3,57 +3,57 @@
 /**
  * Continualy fired as the reproduction progresses.
  *
- * @event Foundation#player:timeupdate
+ * @event Playable#player:timeupdate
  */
 
 /**
  * Fired when an error ocurred at any moment in the lifecycle. <br>
  * It is detailed by two proprieties: <code>errorCode</code> and <code>errorMessage</code>
  * 
- * @event Foundation#player:error
+ * @event Playable#player:error
  * @type {object}
  */
 
 /**
  * Fired when the reproduction has reached its end.
  * 
- * @event Foundation#player:ended
+ * @event Playable#player:ended
  */
 
 /**
  * Fired when when reproduction has stopped because of a temporary lack of data.
  * 
- * @event Foundation#player:waiting
+ * @event Playable#player:waiting
  */
 
 /**
  * Fired when the reproduction is ready to start after having been previously paused due to lack of data.
  * 
- * @event Foundation#player:playing
+ * @event Playable#player:playing
  */
 
 /**
  * Fired when the player starts playing.
  * 
- * @event Foundation#player:play
+ * @event Playable#player:play
  */
 
 /**
  * Fired when the player is paused.
  * 
- * @event Foundation#player:pause
+ * @event Playable#player:pause
  */
 
 /**
  * Base class and interface.
  * 
- * @fires Foundation#player:playing
- * @fires Foundation#player:waiting
- * @fires Foundation#player:ended
- * @fires Foundation#player:error
- * @fires Foundation#player:timeupdate
+ * @fires Playable#player:playing
+ * @fires Playable#player:waiting
+ * @fires Playable#player:ended
+ * @fires Playable#player:error
+ * @fires Playable#player:timeupdate
  */
-class Foundation extends HTMLElement 
+class Playable extends HTMLElement 
 {
     constructor()
     {
@@ -229,7 +229,7 @@ class Foundation extends HTMLElement
      */
     get currentTimeFormatted()
     {
-        return Foundation.secondsToStringRepresentation(this.currentTime);
+        return Playable.secondsToStringRepresentation(this.currentTime);
     }
 
     /**
@@ -275,7 +275,7 @@ class Foundation extends HTMLElement
      */
     get remainingTimeFormatted()
     {
-        return Foundation.secondsToStringRepresentation(this.remainingTime);
+        return Playable.secondsToStringRepresentation(this.remainingTime);
     }
  
     /**
@@ -308,7 +308,7 @@ class Foundation extends HTMLElement
      */
     get durationFormatted()
     {
-        return Foundation.secondsToStringRepresentation(this.duration);
+        return Playable.secondsToStringRepresentation(this.duration);
     }
 
     /**
@@ -337,7 +337,7 @@ class Foundation extends HTMLElement
      */
     getTimeFormatted(percentage)
     {
-        return Foundation.secondsToStringRepresentation(this.getTime(percentage));
+        return Playable.secondsToStringRepresentation(this.getTime(percentage));
     }
  
     /**
@@ -355,7 +355,7 @@ class Foundation extends HTMLElement
         var seconds;
  
         if (typeof time == 'string' && time.indexOf(':') >= 0) {
-            seconds = Foundation.stringRepresentationToSeconds(time);
+            seconds = Playable.stringRepresentationToSeconds(time);
         } else {
             seconds = parseFloat(time);
         }
@@ -385,7 +385,7 @@ class Foundation extends HTMLElement
      * Starts/resume the reproduction of the media.<br>
      * It accepts the same parameters as <code>seek()</code>.
      *
-     * @fires Foundation#player:play
+     * @fires Playable#player:play
      * 
      * @param {number|string|null} time.
      *   Will seek to <code>time</code> when informed.<br>
@@ -403,7 +403,7 @@ class Foundation extends HTMLElement
     }
 
     /**
-     * @fires Foundation#player:pause
+     * @fires Playable#player:pause
      * 
      * Pauses the player.
      */
@@ -444,7 +444,7 @@ class Foundation extends HTMLElement
         var seconds;
 
         if (typeof time == 'string' && time.indexOf(':') >= 0) {
-            seconds = Foundation.stringRepresentationToSeconds(time);
+            seconds = Playable.stringRepresentationToSeconds(time);
         } else if (typeof time == 'string' && time.indexOf('%') >= 0) {
             seconds = this.getTime(parseInt(time));
         } else if (typeof time == 'string') {
@@ -558,4 +558,4 @@ class Foundation extends HTMLElement
     }
 }
 
-export default Foundation;
+export default Playable;

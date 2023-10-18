@@ -1,5 +1,6 @@
 
-import Foundation from './src/Foundation.js';
+import Playable from './src/Playable.js';
 import Helpers from './src/Helpers.js';
 
-export { Foundation, Helpers };
+export default Playable;
+export { Helpers };

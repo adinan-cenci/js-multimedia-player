@@ -1,6 +1,6 @@
 {
-  "name": "multimedia-player-interface",
-  "version": "3.2.0",
+  "name": "playable",
+  "version": "4.0.0",
   "description": "multimedia player",
   "author": "Adinan Cenci <adinancenci@protonmail.com>",
   "license": "MIT",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adinan-cenci/js-multimedia-player-interface.git"
+    "url": "git+https://github.com/adinan-cenci/playable.git"
   },
   "bugs": {
-    "url": "https://github.com/adinan-cenci/js-multimedia-player-interface/issues"
+    "url": "https://github.com/adinan-cenci/playable/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/js-multimedia-player-interface#readme",
+  "homepage": "https://github.com/adinan-cenci/playable#readme",
   "devDependencies": {
     "clean-jsdoc-theme": "^4.2.13",
     "jsdoc": "^4.0.2"
