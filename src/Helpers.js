@@ -1,3 +1,5 @@
+import Loader from './Loader';
+
 /**
  * Helper class.
  */
@@ -6,39 +8,21 @@ class Helpers
     /**
      * A helpful method to load external scripts.
      *
-     * @static
-     *
      * @param {string} src
      *   The uri to the script.
+     * @param {string} propertyToCheck
+     *   The script will check the presence of this property to ensure that
+     *   the script has successfully been loaded.
      * @param {HTMLElement} appendTo
-     *   The element to append the script, it defaults to the document's body.
+     *   The element to append the script to, it defaults to the document's body.
      *
      * @returns {Promise}
      *   To be resolved when the script has been loaded.
      */
-    static async loadExternalJs(src, appendTo = null)
+    static async loadExternalJs(src, propertyToCheck, appendTo = null)
     {
-        return new Promise(async function(success, fail)
-        {
-            var script;
-            script          = document.createElement('script');
-            script.async    = true;
-            script.type     = 'text/javascript';
-
-            script.onload   = function(e)
-            {
-                success('SCRIPT: loaded');
-            };
-
-            script.onerror  = function(e)
-            {
-                fail('SCRIPT: failed to load');
-            };
-
-            script.src      = src;
-            appendTo = appendTo || document.body;
-            appendTo.appendChild(script);
-        });
+        var loader = new Loader(src, propertyToCheck, appendTo);
+        return loader.load();
     }
 }
 

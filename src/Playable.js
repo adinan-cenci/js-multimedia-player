@@ -3,55 +3,55 @@
 /**
  * Continualy fired as the reproduction progresses.
  *
- * @event Playable#player:timeupdate
+ * @event Playable#playable:timeupdate
  */
 
 /**
  * Fired when an error ocurred at any moment in the lifecycle. <br>
  * It is detailed by two proprieties: <code>errorCode</code> and <code>errorMessage</code>
  * 
- * @event Playable#player:error
+ * @event Playable#playable:error
  * @type {object}
  */
 
 /**
  * Fired when the reproduction has reached its end.
  * 
- * @event Playable#player:ended
+ * @event Playable#playable:ended
  */
 
 /**
  * Fired when when reproduction has stopped because of a temporary lack of data.
  * 
- * @event Playable#player:waiting
+ * @event Playable#playable:waiting
  */
 
 /**
  * Fired when the reproduction is ready to start after having been previously paused due to lack of data.
  * 
- * @event Playable#player:playing
+ * @event Playable#playable:playing
  */
 
 /**
  * Fired when the player starts playing.
  * 
- * @event Playable#player:play
+ * @event Playable#playable:play
  */
 
 /**
  * Fired when the player is paused.
  * 
- * @event Playable#player:pause
+ * @event Playable#playable:pause
  */
 
 /**
  * Base class and interface.
  * 
- * @fires Playable#player:playing
- * @fires Playable#player:waiting
- * @fires Playable#player:ended
- * @fires Playable#player:error
- * @fires Playable#player:timeupdate
+ * @fires Playable#playable:playing
+ * @fires Playable#playable:waiting
+ * @fires Playable#playable:ended
+ * @fires Playable#playable:error
+ * @fires Playable#playable:timeupdate
  */
 class Playable extends HTMLElement 
 {
@@ -385,7 +385,7 @@ class Playable extends HTMLElement
      * Starts/resume the reproduction of the media.<br>
      * It accepts the same parameters as <code>seek()</code>.
      *
-     * @fires Playable#player:play
+     * @fires Playable#playable:play
      * 
      * @param {number|string|null} time.
      *   Will seek to <code>time</code> when informed.<br>
@@ -403,7 +403,7 @@ class Playable extends HTMLElement
     }
 
     /**
-     * @fires Playable#player:pause
+     * @fires Playable#playable:pause
      * 
      * Pauses the player.
      */
