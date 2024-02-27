@@ -1,35 +1,35 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-### 5.0.0 - 2023-10-29
-## Changed
+## 5.0.0 - 2023-10-29
+### Changed
 - Renamed all the events, replacing the "`player`" prefix for "`playable`".
 - Enhanded `Helpers.loadExternalJs()` at the cost of a new parameter ( `propertyToCheck` ).
 
 ---
 
-### 4.0.0 - 2023-10-18
-## Changed
+## 4.0.0 - 2023-10-18
+### Changed
 - Changed the library's name.
 - Updated the documentation, generated JSDoc documents.
 
 ---
 
-### 3.2.0 - 2023-09-22
-## Updated
+## 3.2.0 - 2023-09-22
+### Updated
 - The documentation
 
-## Added
+### Added
 - Foundation.prependTo()
 - Foundation.appendAfter()
 
 ---
 
-### 3.1.0 - 2023-09-09
-## Fixed
+## 3.1.0 - 2023-09-09
+### Fixed
 - Missing code in the `index.js` file.
 
-## Added
+### Added
 - `Foundation.appendTo()`
 
 ---

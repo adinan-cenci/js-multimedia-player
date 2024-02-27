@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adinan-cenci/playable.git"
+    "url": "git+https://github.com/wishgranter-project/playable.git"
   },
   "bugs": {
-    "url": "https://github.com/adinan-cenci/playable/issues"
+    "url": "https://github.com/wishgranter-project/playable/issues"
   },
-  "homepage": "https://github.com/adinan-cenci/playable#readme",
+  "homepage": "https://github.com/wishgranter-project/playable#readme",
   "devDependencies": {
     "clean-jsdoc-theme": "^4.2.13",
     "jsdoc": "^4.0.2"
